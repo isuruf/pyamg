@@ -169,17 +169,17 @@ def q12d_local(vertices, lame, mu):
     """
     M = lame + 2*mu  # P-wave modulus
 
-    R_11 = np.matrix([[2, -2, -1, 1],
+    R_11 = np.array([[2, -2, -1, 1],
                       [-2, 2, 1, -1],
                       [-1, 1, 2, -2],
                       [1, -1, -2, 2]]) / 6.0
 
-    R_12 = np.matrix([[1, 1, -1, -1],
+    R_12 = np.array([[1, 1, -1, -1],
                       [-1, -1, 1, 1],
                       [-1, -1, 1, 1],
                       [1, 1, -1, -1]]) / 4.0
 
-    R_22 = np.matrix([[2, 1, -1, -2],
+    R_22 = np.array([[2, 1, -1, -2],
                       [1, 2, -2, -1],
                       [-1, -2, 2, 1],
                       [-2, -1, 1, 2]]) / 6.0
@@ -188,15 +188,15 @@ def q12d_local(vertices, lame, mu):
 
     K = np.zeros((8, 8))  # stiffness matrix
 
-    E = F.T * np.matrix([[M, 0], [0, mu]]) * F
+    E = F.T * np.array([[M, 0], [0, mu]]) * F
     K[0::2, 0::2] = E[0, 0] * R_11 + E[0, 1] * R_12 +\
         E[1, 0] * R_12.T + E[1, 1] * R_22
 
-    E = F.T * np.matrix([[mu, 0], [0, M]]) * F
+    E = F.T * np.array([[mu, 0], [0, M]]) * F
     K[1::2, 1::2] = E[0, 0] * R_11 + E[0, 1] * R_12 +\
         E[1, 0] * R_12.T + E[1, 1] * R_22
 
-    E = F.T * np.matrix([[0, mu], [lame, 0]]) * F
+    E = F.T * np.array([[0, mu], [lame, 0]]) * F
     K[1::2, 0::2] = E[0, 0] * R_11 + E[0, 1] * R_12 +\
         E[1, 0] * R_12.T + E[1, 1] * R_22
 
